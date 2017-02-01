@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shinybook</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+    <div class='nav-bar'>
+      <article class='home-button'>
+        <a href='/'><h1>Shinybook</h1></a>
+      </article>
+      <article class='tool-buttons'>
+        <ul>
+          <li><a href='/alolashinies'><button type='button'>Search Shinies</button></a></li>
+          <% if !@current_user %>
+            <li><a href='/signup'><button type='button'>Sign up</button></a></li>
+          <% end %>
+          <li><a href='/login'><button type='button' value=''>Button 3</button></a></li>
+        </ul>
+      </article>
+    </div>
+  </header>
+
+<%= yield %>
+
+</body>
+</html>

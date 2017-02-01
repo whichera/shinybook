@@ -1,0 +1,63 @@
+<html>
+  <body>
+    <h1>Alola Shiny Tool</h1>
+    <p>Maybe one day there will be CSS here. But not today!</p>
+    
+    
+    <p>Enter a Pokemon in the Alolan Pokedex to see its regular & shiny sprites.</p>
+    <div class="form-group">
+      <form id="pokemon_choice" action='/alolashinies' method='get'>
+        <label for="Pokemon">Pokemon</label><br>
+        <input type="text" name="pokemon" required> <button class="button" value="submit">Let's See</button>
+      </form>
+      <a href='/alolashinies'><button>Reset</button></a>
+    </div>
+    
+    <% if @images %>
+      <div>
+        <% if @prev_pokemon %>
+            <form id="pokemon_scroll" action='/alolashinies' method="get">
+                <input type="hidden" name="pokemon" value="<%= @prev_pokemon %>">
+                <button value="submit"><%= @prev_pokemon.titleize %></button>
+            </form>
+        <% end %>
+        
+        <% @images.each do |url| %>
+            <article class="pokemon_generated">
+                <a href="<%= @redirect %>" target="_blank">
+                    <img src="<%= url %>">
+                </a>
+            </article>
+        <% end %>
+        
+        <% if @next_pokemon %>
+            <form id="pokemon_scroll" action='/alolashinies' method="get">
+                <input type="hidden" name="pokemon" value="<%= @next_pokemon %>">
+                <button value="submit"><%= @next_pokemon.titleize %></button>
+            </form>
+        <% end %>
+        </div>
+        
+        <% if current_user %>
+            <form id="add_to_box1" actions='/alolashinies' method="get">
+                <input type="hidden" name="pokemon" value="<%= @pokemon[:pokemon] %>">
+                <input type="hidden" name="instance_pokemon" value="<%= @pokemon[:pokemon] %>">
+                <button value="submit">Add to Trophy Case</button>
+            </form>
+        <% else %>
+            <p>Please login to use the wishlist feature.</p>
+        <% end %>
+        
+        <% if @instance_pokemon %>
+            <p><%= @params.to_s %></p>
+        <% end %>
+        
+      <% elsif @error %>
+        
+        <article class="pokemon_generated">
+            <p>The Pokemon entered is not in the Alola dex. Or I'm super lazy.</p>
+        </article>
+            
+    <% end %>
+  </body>
+</html>
